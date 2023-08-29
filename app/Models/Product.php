@@ -30,7 +30,7 @@ class Product extends Model
      * @var array
      */
     protected $casts = [
-        'price' => 'decimal:8,2',
+//        'price' => 'decimal:8,2',
     ];
 
     /**
