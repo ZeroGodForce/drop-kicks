@@ -13,7 +13,14 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+//        $products = Product::all();
+        $products = Product::make([
+            'name' => "Nike Dunk Low SB 'Orange Emerald Rise'",
+            'description' => "The Nike Dunk Low SB ‘Orange Emerald Rise’ showcases hairy suede on the upper, featuring a base color in Emerald Rise with contrasting orange overlays at the forefoot and heel. The signature Swoosh appears in aqua blue suede, matching the Nike logo hits that adorn the tongue tag and back tab. The insole packs a Zoom Air unit in the heel for impact protection. Underpinning the sneaker is a durable rubber cupsole in Lemon Chiffon.",
+            'price' => number_format(305.00, 2),
+        ]);
+
+        return view('welcome', ['products' => $products]);
     }
 
     /**
