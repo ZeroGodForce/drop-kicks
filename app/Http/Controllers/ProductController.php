@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\Page;
 use App\Models\Product;
 
 class ProductController extends Controller
@@ -13,7 +14,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('welcome', ['products' => Product::all()]);
+        $products = Product::all();
+        $page = Page::where('slug', Page::PRODUCTS_SLUG)->first();
+
+        return view('products', ['products' => $products, 'page' => $page]);
     }
 
     /**
