@@ -30,7 +30,7 @@
 
                                         <div class="mt-4 sm:mt-0 sm:pr-9">
                                             <label for="quantity-{{ $loop->index }}" class="sr-only">Quantity, {{ $item->product->name }}</label>
-                                            <input type="text" value="{{ $item->quantity }}" name="quantity-{{ $loop->index }}" id="quantity-{{ $loop->index }}" class="w-16 rounded-md border border-gray-300 py-1.5 text-left text-base font-medium leading-5 text-gray-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm">
+                                            <input type="number" value="{{ $item->quantity }}" name="quantity-{{ $loop->index }}" id="quantity-{{ $loop->index }}" class="w-16 rounded-md border border-gray-300 py-1.5 text-left text-base font-medium leading-5 text-gray-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm">
 
                                             <div class="absolute right-0 top-0">
                                                 <button type="button" class="-m-2 inline-flex p-2 text-gray-400 hover:text-gray-500">
@@ -52,7 +52,7 @@
                                 </div>
                             </li>
                         @empty
-                            <p>No items</p>
+                            <p class="mt-4 mb-4 flex justify-center space-x-2 text-gray-700">No items</p>
                         @endforelse
                     </ul>
                 </section>
