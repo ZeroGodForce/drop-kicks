@@ -22,7 +22,6 @@ use Illuminate\Support\Facades\Route;
 //});
 Route::get('/', [PageController::class, 'home'])->name('page.home');
 Route::get('/products', [ProductController::class, 'index'])->name('product.index');
-Route::get('/cart', [CartController::class, 'show'])->name('cart.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -32,6 +31,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/cart', [CartController::class, 'show'])->name('cart.show');
+    Route::put('/cart', [CartController::class, 'update'])->name('cart.update');
 
     // TODO: CRUD ROUTES FOR PAGE CONTROLLER
     // TODO: CRUD ROUTES FOR PRODUCT CONTROLLER

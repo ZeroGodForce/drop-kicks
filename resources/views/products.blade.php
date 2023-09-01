@@ -22,12 +22,30 @@
                                         </div>
                                     </div>
                                     <div class="mt-6">
-                                        <a href="#" class="relative flex items-center justify-center rounded-md border border-transparent bg-gray-100 px-8 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200">Add to bag<span class="sr-only">, Zip Tote Basket</span></a>
+                                        @guest()
+                                            <a href="#" class="relative flex items-center justify-center rounded-md border border-transparent bg-gray-100 px-8 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200">Add to bag<span class="sr-only">, Zip Tote Basket</span></a>
+                                        @endguest
+                                        @auth
+                                            <!-- Add to Cart Form -->
+                                            <form action="{{ route('cart.update') }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <input type="hidden" name="product_uuid" value="{{ $product->uuid }}">
+
+                                                @if(auth()->user()->cart->cartItems()->where('product_id', $product->id)->exists())
+                                                    <input type="hidden" name="quantity" value="{{ auth()->user()->cart->cartItems()->where('product_id', $product->id)->first()->quantity +1 }}">
+                                                @else
+                                                    <input type="hidden" name="quantity" value="1">
+                                                @endif
+                                                <button type="submit" class="relative flex items-center justify-center rounded-md border border-transparent bg-gray-100 px-8 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200">
+                                                    Add to bag<span class="sr-only">, {{ $product->name }}</span>
+                                                </button>
+                                            </form>
+                                        @endauth
                                     </div>
                                 </div>
                             @endforeach
                         @endif
-                        <!-- More products... -->
                     </div>
                 </div>
             </div>
