@@ -5,16 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UpdateCartRequest;
 use App\Models\Cart;
 use App\Models\Page;
-use App\Models\Product;
+use App\Services\CartService;
+use App\Services\ProductService;
 
 class CartController extends Controller
 {
-    /**
-     * Display a listing of all "active" carts - ADMIN.
-     */
-    public function index()
+    public function __construct(public CartService $cartService)
     {
-
     }
 
     /**
@@ -31,18 +28,11 @@ class CartController extends Controller
     /**
      * Update cart or create a new one if none present.
      */
-    public function update(UpdateCartRequest $request)
+    public function update(UpdateCartRequest $request, ProductService $productService)
     {
-        $cart = Cart::firstOrCreate([
-            'user_id' => $request->user()->id
-        ]);
-
-        $product = Product::where('uuid', $request->product_uuid)->first();
-
-        $cart->cartItems()->updateOrCreate(
-            ['product_id' => $product->id],
-            ['quantity' => $request->quantity]
-        );
+        $cart = $this->cartService->getUserCart();
+        $product = $productService->findByUuid($request->product_uuid);
+        $this->cartService->addCartItem($cart, $product->id, $request->quantity);
 
         /**
          * 1. GET ANY CART ITEMS
@@ -53,11 +43,6 @@ class CartController extends Controller
          * 3. RECALCULATE SUBTOTALS AND FEES
          * 4. SAVE CART
          */
-
-        // Extend cart life by 7 days
-        $cart->expires_at = now()->addDays(7);
-        $cart->save();
-
 
         return redirect()->back();
     }
