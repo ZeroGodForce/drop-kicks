@@ -10,7 +10,8 @@ class CartService
     public function getUserCart()
     {
         return Cart::firstOrCreate([
-            'user_id' => auth()->user()->id
+            'user_id' => auth()->user()->id,
+            'fees' => 4.99
         ]);
     }
 
