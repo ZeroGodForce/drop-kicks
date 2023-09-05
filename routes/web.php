@@ -17,9 +17,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
 Route::get('/', [PageController::class, 'home'])->name('page.home');
 Route::get('/products', [ProductController::class, 'index'])->name('product.index');
 
@@ -34,9 +31,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/cart', [CartController::class, 'show'])->name('cart.show');
     Route::put('/cart', [CartController::class, 'update'])->name('cart.update');
-
-    // TODO: CRUD ROUTES FOR PAGE CONTROLLER
-    // TODO: CRUD ROUTES FOR PRODUCT CONTROLLER
 });
 
 require __DIR__.'/auth.php';
