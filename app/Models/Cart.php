@@ -19,21 +19,8 @@ class Cart extends Model
     protected $fillable = [
         'user_id',
         'data',
-        'subtotal',
         'fees',
-        'total',
         'expires_at',
-    ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-//        'subtotal' => 'decimal:8,2',
-//        'fees' => 'decimal:8,2',
-//        'total' => 'decimal:8,2',
     ];
 
     /**

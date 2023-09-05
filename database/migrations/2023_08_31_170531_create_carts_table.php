@@ -15,9 +15,7 @@ return new class extends Migration
             $table->id();
             $table->uuid();
             $table->foreignId('user_id')->constrained('users');
-            $table->decimal('subtotal')->nullable();
             $table->decimal('fees')->nullable();
-            $table->decimal('total')->nullable();
             $table->timestamp('expires_at')->default(now()->addDays(7));
             $table->timestamps();
         });
