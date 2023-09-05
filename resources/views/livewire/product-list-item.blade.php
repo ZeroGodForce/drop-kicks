@@ -14,14 +14,13 @@
     <div class="mt-6">
         @auth
             <form wire:submit="add">
-                <input type="hidden" name="product_uuid" wire:model="product_uuid" value="{{ $product->uuid }}">
                 <input type="hidden" name="quantity" wire:model="quantity" value="{{ $quantity }}">
-                <button type="submit" class="relative flex items-center justify-center rounded-md border border-transparent bg-gray-100 px-8 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200">
-                    Add to bag<span class="sr-only">, {{ $product->name }}</span>
+                <button type="submit" class="w-full relative flex items-center justify-center rounded-md border border-transparent bg-gray-100 px-8 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200">
+                    Add to cart<span class="sr-only">, {{ $product->name }}</span>
                 </button>
             </form>
         @else
-            <a href="#" class="relative flex items-center justify-center rounded-md border border-transparent bg-gray-100 px-8 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200">Add to bag<span class="sr-only">, Zip Tote Basket</span></a>
+            <a href="{{ route('login') }}" class="relative flex items-center justify-center rounded-md border border-transparent bg-gray-100 px-8 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200">Sign in to add this to cart<span class="sr-only">, {{ $product->name }}</span></a>
         @endauth
     </div>
 </div>

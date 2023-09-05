@@ -2,19 +2,18 @@
 
 namespace App\Livewire;
 
-use App\Models\Product;
 use App\Services\CartService;
 use Livewire\Component;
 
 class ProductListItem extends Component
 {
-    public Product $product;
+    public $product;
     public ?int $quantity;
 
-    public function mount()
+    public function mount(CartService $cartService)
     {
         if (auth()->check()) {
-            $cartItem = auth()->user()->cart->cartItems()
+            $cartItem = $cartService->getUserCart()->cartItems()
                 ->where('product_id', $this->product->id)
                 ->first();
 
@@ -24,17 +23,10 @@ class ProductListItem extends Component
         }
     }
 
-    public function add()
+    public function add(CartService $cartService)
     {
-        $cartService = new CartService();
-
-        if (auth()->check()) {
-            $cart = $cartService->getUserCart();
-            $cartItem = $cartService->addCartItem($cart, $this->product->id, $this->quantity);
-            $this->quantity = $cartItem->quantity;
-        } else {
-            // REDIRECT TO LOGIN, THEN ONCE LOGIN COMPLETE RETURN TO ORIGINAL LOCATION?
-        }
+        $cartService->addCartItem($this->product->id, $this->quantity);
+        $this->product->refresh();
     }
 
     public function render()
