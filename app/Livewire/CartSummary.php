@@ -10,12 +10,12 @@ class CartSummary extends Component
 {
     public $cart;
 
-    public function updateQty(CartService $cartService, $cartItemId, $newQuantity)
+    public function updateQty(CartService $cartService, $cartItemId, $newQty)
     {
-        if ($newQuantity == 0) {
+        if ($newQty == 0) {
             $cartService->removeCartItem($cartItemId);
         } else {
-            $cartService->updateQuantity($cartItemId, $newQuantity);
+            $cartService->updateQuantity($cartItemId, $newQty);
         }
 
         $this->cart->refresh();
