@@ -15,13 +15,25 @@ class CartService
         ]);
     }
 
-    public function addCartItem(Cart $cart, string $id, int|null $quantity): Model
+    public function addCartItem(int $id, int|null $quantity): Model
     {
-        return $cart->cartItems()->updateOrCreate([
+        return $this->getUserCart()->cartItems()->updateOrCreate([
             'product_id' => $id
         ], [
             'quantity' => $quantity ?? 1,
             'expires_at' => now()->addDays(7),  // Extend cart life by 7 days
         ]);
+    }
+
+    public function removeCartItem($itemId)
+    {
+        $this->getUserCart()->cartItems()->where('id', $itemId)->delete();
+    }
+
+    public function updateQuantity($cartItemId, $qty)
+    {
+        $this->getUserCart()->cartItems()
+            ->where('id', $cartItemId)
+            ->update(['quantity' => $qty]);
     }
 }

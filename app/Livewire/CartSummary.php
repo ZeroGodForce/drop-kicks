@@ -2,36 +2,28 @@
 
 namespace App\Livewire;
 
-use App\Models\Cart;
 use App\Services\CartService;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class CartSummary extends Component
 {
-    public Cart $cart;
+    public $cart;
 
-    public function mount()
-    {
-        $this->cart = auth()->user()->cart;
-    }
-
-    public function updateQty($cartItemId, $newQuantity)
+    public function updateQty(CartService $cartService, $cartItemId, $newQuantity)
     {
         if ($newQuantity == 0) {
-            $this->removeItem($cartItemId);
+            $cartService->removeCartItem($cartItemId);
         } else {
-            auth()->user()->cart->cartItems()
-                ->where('id', $cartItemId)
-                ->update(['quantity' => $newQuantity]);
+            $cartService->updateQuantity($cartItemId, $newQuantity);
         }
 
         $this->cart->refresh();
     }
 
-    public function removeItem($id)
+    public function removeItem(CartService $cartService, $itemId)
     {
-        auth()->user()->cart->cartItems()->where('id', $id)->delete();
+        $cartService->removeCartItem($itemId);
         $this->cart->refresh();
     }
 
