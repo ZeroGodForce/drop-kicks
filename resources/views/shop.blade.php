@@ -27,7 +27,6 @@
                         </div>
                     @endforeach
                 @endif
-                <!-- More products... -->
             </div>
         </div>
     </div>
