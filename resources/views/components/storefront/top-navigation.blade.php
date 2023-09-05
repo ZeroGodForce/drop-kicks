@@ -559,9 +559,23 @@
 
                     <div class="ml-auto flex items-center">
                         <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                            <a href="{{ route('login') }}" class="text-sm font-medium text-gray-700 hover:text-gray-800">Sign in</a>
-                            <span class="h-6 w-px bg-gray-200" aria-hidden="true"></span>
-                            <a href="{{ route('register') }}" class="text-sm font-medium text-gray-700 hover:text-gray-800">Create account</a>
+                            @auth()
+                                <a href="{{ route('profile.edit') }}" class="text-sm font-medium text-gray-700 hover:text-gray-800">Account</a>
+                                <span class="h-6 w-px bg-gray-200" aria-hidden="true"></span>
+
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <a href="{{ route('logout') }}" class="text-sm font-medium text-red-700 hover:text-red-800"
+                                       onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                        Sign out
+                                    </a>
+                                </form>
+                            @else
+                                <a href="{{ route('login') }}" class="text-sm font-medium text-gray-700 hover:text-gray-800">Sign in</a>
+                                <span class="h-6 w-px bg-gray-200" aria-hidden="true"></span>
+                                <a href="{{ route('register') }}" class="text-sm font-medium text-gray-700 hover:text-gray-800">Create account</a>
+                            @endauth
                         </div>
 
                         <div class="hidden lg:ml-8 lg:flex">
